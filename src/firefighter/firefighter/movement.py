@@ -18,7 +18,7 @@ class TofNode(Node):
 
     def check_range(self, msg):
         distance = msg.range
-        if distance >= 0.4:
+        if distance >= 1:
             self.move_forward()
         else:
             self.stop()
