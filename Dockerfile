@@ -4,9 +4,9 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /workspace
 
+RUN apt install ros-humble-rqt ros-humble-rqt-common-plugins -y
 COPY requirements-apt.txt .
 COPY requirements-python.txt .
-
 RUN set -e; \
     if [ -s requirements-apt.txt ]; then \
         apt update; \
