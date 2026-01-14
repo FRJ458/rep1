@@ -10,6 +10,7 @@ setup(
         'console_scripts': [
             'firefighter = firefighter.firefighter:main',
             'movement = firefighter.movement:main',
+            'movefire = firefighter.movefire:main',
         ],
     },
     install_requires=['setuptools'],
