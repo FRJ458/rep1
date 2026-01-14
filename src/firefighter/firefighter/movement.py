@@ -24,7 +24,7 @@ class TofNode(Node):
             self.stop()
 
     def move_forward(self):
-        self.run_wheels('forward_callback', 0.5, 0.65)
+        self.run_wheels('forward_callback', 0.5, 0.6)
 
     def stop(self):
         self.run_wheels('stop_callback', 0.0, 0.0)
