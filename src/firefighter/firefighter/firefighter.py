@@ -22,7 +22,7 @@ class Blinker(Node):
             pattern = ColorRGBA(r=1.0, g=0.0, b=0.0, a=1.0)
         else:
             # выключен
-            pattern = ColorRGBA(r=0.0, g=0.0, b=0.0, a=1.0)
+            pattern = ColorRGBA(r=1.0, g=1.0, b=0.0, a=1.0)
 
         msg.rgb_vals = [pattern] * 5
         self.publisher.publish(msg)
