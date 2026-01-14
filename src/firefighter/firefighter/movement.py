@@ -12,7 +12,7 @@ from std_msgs.msg import ColorRGBA
 
 class TofNode(Node):
     LED_COLORS = {
-        0: ColorRGBA(r=1.0, g=1.0, b=0.0, a=1.0),
+        0: ColorRGBA(r=0.0, g=0.0, b=0.0, a=0.0),
         1: ColorRGBA(r=1.0, g=0.0, b=0.0, a=1.0),
         2: ColorRGBA(r=0.0, g=1.0, b=0.0, a=1.0),
         3: ColorRGBA(r=0.0, g=0.0, b=1.0, a=1.0)
