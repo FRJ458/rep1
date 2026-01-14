@@ -10,6 +10,7 @@
   <license>GPLv3</license>
 
   <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
   <depend>rclpy</depend>
 
   <export>
