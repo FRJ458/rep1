@@ -42,8 +42,10 @@ class TofNode(Node):
         self.get_logger().info(f"Publisher initialized for /{self.vehicle_name}/wheels_cmd topic")
         self.led_timer = self.create_timer(0.5, self.publish_led_pattern)
         self.led_state = 0  # do not change directly, only with self.change_color()
+        self.led_counter = 0
 
     def change_color(self, color):
+        self.led_counter = 0
         self.led_state = color
         self.publish_led_pattern()
         self.led_timer.reset()
@@ -61,8 +63,12 @@ class TofNode(Node):
 
     def publish_led_pattern(self):
         msg = LEDPattern()
-        pattern = self.LED_COLORS[self.led_state]
+        if self.led_counter % 2:
+            pattern = self.LED_COLORS[0]
+        else:
+            pattern = self.LED_COLORS[self.led_state]
         msg.rgb_vals = [pattern] * 5
+        self.led_counter += 1
         self.led_publisher.publish(msg)
 
     def move_forward(self):
