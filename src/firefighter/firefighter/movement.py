@@ -10,24 +10,46 @@ from duckietown_msgs.msg import WheelsCmdStamped
 
 class TofNode(Node):
     def __init__(self):
-        super().__init__('tof')
-        self.vehicle_name = os.getenv('VEHICLE_NAME')
+        super().__init__('tof_node')
+        self.vehicle_name = os.getenv('VEHICLE_NAME', 'unknown_vehicle')
 
-        self.tof_sub = self.create_subscription(Range, f'/{self.vehicle_name}/range', self.check_range, 10)
-        self.wheels_pub = self.create_publisher(WheelsCmdStamped, f'/{self.vehicle_name}/wheels_cmd', 10)
+        self.get_logger().info(f"Initializing TofNode for vehicle: {self.vehicle_name}")
 
-    def check_range(self, msg):
+        # Subscriber to the range sensor
+        self.tof_sub = self.create_subscription(
+            Range,
+            f'/{self.vehicle_name}/range',
+            self.check_range,
+            10
+        )
+        self.get_logger().info(f"Subscribed to /{self.vehicle_name}/range topic")
+
+        # Publisher for wheel commands
+        self.wheels_pub = self.create_publisher(
+            WheelsCmdStamped,
+            f'/{self.vehicle_name}/wheels_cmd',
+            10
+        )
+        self.get_logger().info(f"Publisher initialized for /{self.vehicle_name}/wheels_cmd topic")
+
+    def check_range(self, msg: Range):
         distance = msg.range
+        self.get_logger().info(f"Received range data: {distance:.3f} meters")
+
         if distance >= 0.9:
+            self.get_logger().info("Distance is safe. Moving forward.")
             self.move_forward()
         else:
+            self.get_logger().warn("Distance too short! Stopping the vehicle.")
             self.stop()
 
     def move_forward(self):
-        self.run_wheels('forward_callback', 0.5, 0.55)
+        self.get_logger().debug("Executing move_forward command")
+        self.run_wheels('forward_command', 0.5, 0.5)
 
     def stop(self):
-        self.run_wheels('stop_callback', 0.0, 0.0)
+        self.get_logger().debug("Executing stop command")
+        self.run_wheels('stop_command', 0.0, 0.0)
 
     def run_wheels(self, frame_id, vel_left, vel_right):
         wheel_msg = WheelsCmdStamped()
@@ -39,12 +61,29 @@ class TofNode(Node):
         wheel_msg.vel_right = vel_right
         self.wheels_pub.publish(wheel_msg)
 
+        self.get_logger().info(
+            f"Published WheelsCmdStamped -> frame_id: {frame_id}, "
+            f"vel_left: {vel_left:.2f}, vel_right: {vel_right:.2f}"
+        )
+
+    def on_shutdown(self):
+        self.get_logger().info("Node shutting down: stopping wheels for safety")
+        self.stop()
+
 
 def main():
     rclpy.init()
-    tof = TofNode()
-    rclpy.spin(tof)
-    rclpy.shutdown()
+    tof_node = TofNode()
+    try:
+        tof_node.get_logger().info("TofNode is now spinning. Waiting for sensor data...")
+        rclpy.spin(tof_node)
+    except KeyboardInterrupt:
+        tof_node.get_logger().info("KeyboardInterrupt received. Stopping node...")
+    finally:
+        tof_node.on_shutdown()
+        tof_node.destroy_node()
+        rclpy.shutdown()
+        print("ROS2 shutdown complete.")
 
 
 if __name__ == '__main__':
