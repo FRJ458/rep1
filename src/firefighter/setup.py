@@ -10,6 +10,8 @@ setup(
         'console_scripts': [
             'firefighter = firefighter.firefighter:main',
             'movement = firefighter.movement:main',
+
+
             'frmvm = firefighter.frmvm:main',
         ],
     },
