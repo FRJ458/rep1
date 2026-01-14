@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'blinker'
+package_name = 'firefighter'
 
 setup(
     name=package_name,
@@ -9,12 +9,10 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('lib/' + package_name, ['blinker/blinker.py'])
+        ('lib/' + package_name, ['firefighter/firefighter.py'])
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Ilia Nechaev, Gage Lankford, Artemis Pados',
-    maintainer_email='ilia.nechaev@jetbrains.com, lankford@mit.edu, apados@mit.edu',
-    description='Package that blinks LEDs of Duckiebot',
+    description='Firefighter bot',
     license='GPLv3',
 )
