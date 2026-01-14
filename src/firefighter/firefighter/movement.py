@@ -45,6 +45,8 @@ class TofNode(Node):
         self.led_counter = 0
 
     def change_color(self, color):
+        if self.led_state == color:
+            return
         self.led_counter = 0
         self.led_state = color
         self.publish_led_pattern()
