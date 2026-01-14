@@ -14,6 +14,7 @@ class CombinedNode(Node):
         self.is_moving = True
         self.blink_counter = 0
 
+
         self.create_subscription(
             Range,
             f'/{self.vehicle_name}/range',
