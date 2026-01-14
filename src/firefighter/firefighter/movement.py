@@ -18,13 +18,13 @@ class TofNode(Node):
 
     def check_range(self, msg):
         distance = msg.range
-        if distance >= 2:
+        if distance >= 0.9:
             self.move_forward()
         else:
             self.stop()
 
     def move_forward(self):
-        self.run_wheels('forward_callback', 0.5, 0.6)
+        self.run_wheels('forward_callback', 0.5, 0.55)
 
     def stop(self):
         self.run_wheels('stop_callback', 0.0, 0.0)
