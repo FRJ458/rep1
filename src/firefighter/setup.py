@@ -11,8 +11,8 @@ setup(
             'firefighter = firefighter.firefighter:main',
             'movement = firefighter.movement:main',
             'movefire = firefighter.movefire:main',
-            'frmvm = frmvm:main',
-            'camera = camera:main'
+            'frmvm = firefighter.frmvm:main',
+            'camera = firefighter.camera:main'
         ],
     },
     install_requires=['setuptools'],

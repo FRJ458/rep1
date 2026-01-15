@@ -6,11 +6,15 @@ build:
 	docker run --rm -v ./:/workspace --entrypoint=colcon "$(IMAGE_NAME)" build
 
 run:
+	xhost +local:docker
 	docker run --rm -it \
 		--network=host \
 		--privileged \
+		-e DISPLAY=$(DISPLAY) \
+		-e QT_X11_NO_MITSHM=1 \
 		-e VEHICLE_NAME=duckie04 \
 		-v /dev/shm:/dev/shm \
+		-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
 		-v ./:/workspace \
 		"$(IMAGE_NAME)" \
 		/bin/bash -c "source /workspace/install/setup.bash && exec bash"
