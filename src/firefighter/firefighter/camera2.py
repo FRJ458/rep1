@@ -132,6 +132,7 @@ class ImageNode(Node):
         return red_ratio > 0.01
 
 
+
 def main():
     rclpy.init()
 
