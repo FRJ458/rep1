@@ -12,7 +12,7 @@ run:
 		--privileged \
 		-e DISPLAY=$(DISPLAY) \
 		-e QT_X11_NO_MITSHM=1 \
-		-e VEHICLE_NAME=duckie04 \
+		-e VEHICLE_NAME=duckie02 \
 		-v /dev/shm:/dev/shm \
 		-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
 		-v ./:/workspace \

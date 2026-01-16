@@ -12,9 +12,10 @@ setup(
             'movement = firefighter.movement:main',
             'movefire = firefighter.movefire:main',
             'frmvm = firefighter.frmvm:main',
-            'camera = firefighter.camera:main'
-            'camera2 = firefighter.camera2:main'
-            'fin1 = firefighter.fin1:main'
+            'camera = firefighter.camera:main',
+            'camera2 = firefighter.camera2:main',
+            'fin1 = firefighter.fin1:main',
+            'rotation = firefighter.rotation:main',
         ],
     },
     install_requires=['setuptools'],
